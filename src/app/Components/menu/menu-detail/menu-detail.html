@@ -1,0 +1,65 @@
+<div class="detail-page">
+  <!-- Back -->
+  <a routerLink="/menu" id="btn-back-menu" class="back-link">← Back to Menu</a>
+
+  @if (loading()) {
+    <div class="detail-skeleton">
+      <div class="sk sk-img"></div>
+      <div class="sk-body">
+        <div class="sk sk-title"></div>
+        <div class="sk sk-line"></div>
+        <div class="sk sk-line short"></div>
+      </div>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="error-banner" role="alert">{{ error() }}</div>
+  }
+
+  @if (!loading() && !error() && item()) {
+    <div class="detail-card">
+      <!-- Image -->
+      <div class="detail-img-wrap">
+        @if (item()!.imageUrl) {
+          <img [src]="item()!.imageUrl" [alt]="item()!.name" class="detail-img" />
+        } @else {
+          <div class="detail-img-placeholder">🍴</div>
+        }
+        @if (!item()!.isAvailable) {
+          <span class="badge-unavailable">Currently Unavailable</span>
+        }
+      </div>
+
+      <!-- Info -->
+      <div class="detail-info">
+        <span class="detail-category">{{ item()!.categoryName }}</span>
+        <h1 class="detail-name">{{ item()!.name }}</h1>
+        <p class="detail-desc">{{ item()!.description }}</p>
+
+        <div class="detail-meta">
+          <div class="meta-item">
+            <span class="meta-label">Price</span>
+            <span class="meta-value price">₹{{ item()!.price | number:'1.2-2' }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">In Stock</span>
+            <span class="meta-value" [class.low-stock]="item()!.stockQuantity < 5">
+              {{ item()!.stockQuantity }} units
+            </span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Availability</span>
+            <span class="meta-value" [class.available]="item()!.isAvailable" [class.unavailable]="!item()!.isAvailable">
+              {{ item()!.isAvailable ? 'Available' : 'Unavailable' }}
+            </span>
+          </div>
+        </div>
+
+        <a routerLink="/cart" id="btn-go-cart" class="btn-cart">
+          🛒 Go to Cart
+        </a>
+      </div>
+    </div>
+  }
+</div>
