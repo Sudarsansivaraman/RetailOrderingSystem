@@ -1,0 +1,45 @@
+<div class="order-history-container">
+  <h1>My Order History</h1>
+
+  <div *ngIf="loading" class="loading">
+    <p>Loading your orders...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+    <button (click)="loadOrderHistory()" class="retry-btn">Retry</button>
+  </div>
+
+  <div *ngIf="!loading && orders.length === 0 && !error" class="no-orders">
+    <p>You haven't placed any orders yet.</p>
+  </div>
+
+  <div *ngIf="!loading && orders.length > 0" class="orders-list">
+    <div *ngFor="let order of orders" class="order-card">
+      <div class="order-header">
+        <div class="order-info">
+          <h3>Order #{{ order.orderId }}</h3>
+          <p class="order-date">{{ order.orderDate | date: 'MMM dd, yyyy' }}</p>
+        </div>
+        <div class="order-amount">
+          <p class="total">₹{{ order.totalAmount.toFixed(2) }}</p>
+          <p class="status" [style.color]="getStatusColor(order.status)">
+            {{ order.status }}
+          </p>
+        </div>
+      </div>
+
+      <div class="order-items">
+        <p class="items-count">{{ order.items.length }} item(s)</p>
+        <div *ngFor="let item of order.items" class="item-summary">
+          <span>{{ item.itemName }} x{{ item.quantity }}</span>
+          <span>₹{{ (item.unitPrice * item.quantity).toFixed(2) }}</span>
+        </div>
+      </div>
+
+      <button (click)="viewOrderDetail(order.orderId)" class="view-btn">
+        View Details
+      </button>
+    </div>
+  </div>
+</div>

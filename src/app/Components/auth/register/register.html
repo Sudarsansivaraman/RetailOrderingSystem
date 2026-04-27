@@ -1,0 +1,85 @@
+<!-- Register Page -->
+<div class="register-container">
+  <div class="register-card">
+    <!-- Header -->
+    <div class="register-header">
+      <h1>🍕 Food Order</h1>
+      <p>Create a new account</p>
+    </div>
+
+    <!-- Error Alert -->
+    <div class="error-alert" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Success Alert -->
+    <div class="success-alert" *ngIf="successMessage">
+      {{ successMessage }}
+    </div>
+
+    <!-- Register Form -->
+    <form (ngSubmit)="onRegister()" class="register-form">
+      <!-- Full Name Field -->
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input
+          type="text"
+          id="fullName"
+          [(ngModel)]="fullName"
+          name="fullName"
+          placeholder="Enter your full name"
+          required
+        />
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          [(ngModel)]="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+        />
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Create a password (min 6 chars)"
+          required
+        />
+      </div>
+
+      <!-- Confirm Password Field -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+          placeholder="Confirm your password"
+          required
+        />
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn-register" [disabled]="isLoading">
+        {{ isLoading ? 'Creating Account...' : 'Create Account' }}
+      </button>
+    </form>
+
+    <!-- Login Link -->
+    <div class="register-footer">
+      <p>Already have an account? <a routerLink="/login">Sign in here</a></p>
+    </div>
+  </div>
+</div>
