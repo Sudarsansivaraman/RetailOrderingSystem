@@ -1,0 +1,125 @@
+<div class="admin-page">
+  <!-- Header -->
+  <div class="admin-header">
+    <div>
+      <h1 class="admin-title">Admin Dashboard</h1>
+      <p class="admin-sub">Manage menu items and categories</p>
+    </div>
+    <div class="header-actions">
+      <a routerLink='/admin/item/new' id="btn-add-item" class="btn-primary">+ Add Item</a>
+      <a routerLink='/admin/category/new' id="btn-add-category" class="btn-outline">+ Add Category</a>
+    </div>
+  </div>
+
+  <!-- Flash messages -->
+  @if (successMsg()) {
+    <div class="flash success" role="status">✅ {{ successMsg() }}</div>
+  }
+  @if (errorMsg()) {
+    <div class="flash error" role="alert">❌ {{ errorMsg() }}</div>
+  }
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button id="tab-items" class="tab-btn" [class.active]="activeTab() === 'items'" (click)="setTab('items')">
+      Menu Items
+      <span class="badge">{{ items().length }}</span>
+    </button>
+    <button id="tab-categories" class="tab-btn" [class.active]="activeTab() === 'categories'" (click)="setTab('categories')">
+      Categories
+      <span class="badge">{{ categories().length }}</span>
+    </button>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-text">Loading data…</div>
+  }
+
+  <!-- Items Table -->
+  @if (!loading() && activeTab() === 'items') {
+    @if (items().length === 0) {
+      <div class="empty-state">No items yet. <a routerLink="/admin/items/new">Add one →</a></div>
+    } @else {
+      <div class="table-wrap">
+        <table class="data-table" id="items-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of items(); track trackItemId($index, item)) {
+              <tr [id]="'row-item-' + item.itemId">
+                <td class="muted">{{ item.itemId }}</td>
+                <td>
+                  @if (item.imageUrl) {
+                    <img [src]="item.imageUrl" [alt]="item.name" class="thumb" />
+                  } @else {
+                    <span class="thumb-placeholder">🍴</span>
+                  }
+                </td>
+                <td class="bold">{{ item.name }}</td>
+                <td>
+                  <span class="chip">{{ item.categoryName }}</span>
+                </td>
+                <td class="bold price">₹{{ item.price | number:'1.2-2' }}</td>
+                <td [class.low-stock]="item.stockQuantity < 5">{{ item.stockQuantity }}</td>
+                <td>
+                  <span class="status-badge" [class.available]="item.isAvailable" [class.unavailable]="!item.isAvailable">
+                    {{ item.isAvailable ? 'Available' : 'Unavailable' }}
+                  </span>
+                </td>
+                <td class="action-cell">
+                  <a [routerLink]="['/admin/items', item.itemId, 'edit']" class="btn-edit" [id]="'btn-edit-item-' + item.itemId">Edit</a>
+                  <button class="btn-delete" (click)="deleteItem(item.itemId, item.name)" [id]="'btn-delete-item-' + item.itemId">Delete</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+
+  <!-- Categories Table -->
+  @if (!loading() && activeTab() === 'categories') {
+    @if (categories().length === 0) {
+      <div class="empty-state">No categories yet. <a routerLink="/admin/categories/new">Add one →</a></div>
+    } @else {
+      <div class="table-wrap">
+        <table class="data-table" id="categories-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (cat of categories(); track trackCatId($index, cat)) {
+              <tr [id]="'row-cat-' + cat.categoryId">
+                <td class="muted">{{ cat.categoryId }}</td>
+                <td class="bold">{{ cat.name }}</td>
+                <td class="muted">{{ cat.description }}</td>
+                <td class="muted">{{ cat.createdAt | date:'mediumDate' }}</td>
+                <td class="action-cell">
+                  <a [routerLink]="['/admin/categories', cat.categoryId, 'edit']" class="btn-edit" [id]="'btn-edit-cat-' + cat.categoryId">Edit</a>
+                  <button class="btn-delete" (click)="deleteCategory(cat.categoryId, cat.name)" [id]="'btn-delete-cat-' + cat.categoryId">Delete</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+</div>

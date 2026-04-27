@@ -1,0 +1,96 @@
+<section class="menu-page">
+  <!-- Hero Banner -->
+  <div class="menu-hero">
+    <h1 class="menu-title">Our Menu</h1>
+    <p class="menu-subtitle">Fresh, delicious food — crafted for you</p>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input
+        id="menu-search"
+        type="text"
+        placeholder="Search dishes..."
+        [(ngModel)]="searchTerm"
+        (keyup.enter)="onSearch()"
+        class="search-input"
+      />
+      @if (searchTerm()) {
+        <button class="clear-btn" (click)="clearSearch()" aria-label="Clear search">✕</button>
+      }
+      <button class="search-btn" (click)="onSearch()" id="btn-search">Search</button>
+    </div>
+  </div>
+
+  <!-- Category Chips -->
+  <div class="category-strip">
+    <button
+      id="cat-all"
+      class="cat-chip"
+      [class.active]="selectedCategoryId() === null"
+      (click)="selectCategory(null)"
+    >All</button>
+    @for (cat of categories(); track trackByCatId($index, cat)) {
+      <button
+        [id]="'cat-' + cat.categoryId"
+        class="cat-chip"
+        [class.active]="selectedCategoryId() === cat.categoryId"
+        (click)="selectCategory(cat.categoryId)"
+      >{{ cat.name }}</button>
+    }
+  </div>
+
+  <!-- Error -->
+  @if (error()) {
+    <div class="error-banner" role="alert">{{ error() }}</div>
+  }
+
+  <!-- Loading -->
+  @if (loading()) {
+    <div class="loading-grid">
+      @for (s of [1,2,3,4,5,6]; track s) {
+        <div class="skeleton-card"></div>
+      }
+    </div>
+  }
+
+  <!-- Items Grid -->
+  @if (!loading() && !error()) {
+    @if (items().length === 0) {
+      <div class="empty-state">
+        <span class="empty-icon">🍽️</span>
+        <p>No items found. Try a different filter.</p>
+      </div>
+    } @else {
+      <div class="items-grid">
+        @for (item of items(); track trackById($index, item)) {
+          <article class="item-card" [class.out-of-stock]="!item.isAvailable">
+            <a [routerLink]="['/menu', item.itemId]" class="card-link" [id]="'item-link-' + item.itemId">
+              <div class="card-img-wrap">
+                @if (item.imageUrl) {
+                  <img [src]="item.imageUrl" [alt]="item.name" class="card-img" loading="lazy" />
+                } @else {
+                  <div class="card-img-placeholder">🍴</div>
+                }
+                @if (!item.isAvailable) {
+                  <span class="badge-unavailable">Unavailable</span>
+                }
+              </div>
+              <div class="card-body">
+                <span class="card-category">{{ item.categoryName }}</span>
+                <h3 class="card-name">{{ item.name }}</h3>
+                <p class="card-desc">{{ item.description }}</p>
+                <div class="card-footer">
+                  <span class="card-price">₹{{ item.price | number:'1.2-2' }}</span>
+                  <span class="card-stock" [class.low]="item.stockQuantity < 5">
+                    {{ item.stockQuantity > 0 ? item.stockQuantity + ' left' : 'Out of stock' }}
+                  </span>
+                </div>
+              </div>
+            </a>
+          </article>
+        }
+      </div>
+    }
+  }
+</section>

@@ -1,0 +1,55 @@
+<div class="form-page">
+  <div class="form-card">
+    <!-- Header -->
+    <div class="form-header">
+      <a routerLink="/admin" id="btn-back-admin-cat" class="back-link">← Back to Dashboard</a>
+      <h1 class="form-title">{{ isEdit() ? 'Edit Category' : 'Add New Category' }}</h1>
+      <p class="form-sub">{{ isEdit() ? 'Update the category details below' : 'Create a new menu category' }}</p>
+    </div>
+
+    @if (errorMsg()) {
+      <div class="error-banner" role="alert">{{ errorMsg() }}</div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="submit()" id="category-form" novalidate>
+      <!-- Name -->
+      <div class="field">
+        <label for="cat-name" class="label">Category Name <span class="req">*</span></label>
+        <input
+          id="cat-name"
+          type="text"
+          formControlName="name"
+          class="input"
+          [class.invalid]="f['name'].invalid && f['name'].touched"
+          placeholder="e.g. Main Course"
+        />
+        @if (f['name'].invalid && f['name'].touched) {
+          <span class="field-error">Category name is required (max 200 chars)</span>
+        }
+      </div>
+
+      <!-- Description -->
+      <div class="field">
+        <label for="cat-desc" class="label">Description</label>
+        <textarea
+          id="cat-desc"
+          formControlName="description"
+          class="input textarea"
+          placeholder="Briefly describe this category…"
+          rows="4"
+        ></textarea>
+        @if (f['description'].invalid && f['description'].touched) {
+          <span class="field-error">Max 1000 characters</span>
+        }
+      </div>
+
+      <!-- Actions -->
+      <div class="form-actions">
+        <a routerLink="/admin" id="btn-cancel-cat" class="btn-cancel">Cancel</a>
+        <button type="submit" id="btn-submit-cat" class="btn-submit" [disabled]="submitting()">
+          {{ submitting() ? 'Saving…' : (isEdit() ? 'Update Category' : 'Add Category') }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
