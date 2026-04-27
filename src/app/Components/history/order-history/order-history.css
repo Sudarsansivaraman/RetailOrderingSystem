@@ -1,0 +1,145 @@
+.order-history-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #1565C0;
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #757575;
+}
+
+.error-message {
+  background-color: #FFEBEE;
+  border: 1px solid #EF5350;
+  color: #C62828;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.retry-btn {
+  background-color: #C62828;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.retry-btn:hover {
+  background-color: #B71C1C;
+}
+
+.no-orders {
+  text-align: center;
+  padding: 60px 20px;
+  color: #757575;
+}
+
+.orders-list {
+  display: grid;
+  gap: 20px;
+}
+
+.order-card {
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.order-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #EEEEEE;
+  padding-bottom: 15px;
+}
+
+.order-info h3 {
+  margin: 0;
+  color: #212121;
+  font-size: 18px;
+}
+
+.order-date {
+  margin: 5px 0 0 0;
+  color: #757575;
+  font-size: 14px;
+}
+
+.order-amount {
+  text-align: right;
+}
+
+.total {
+  margin: 0;
+  color: #1565C0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.status {
+  margin: 5px 0 0 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.order-items {
+  margin-bottom: 15px;
+  padding: 10px 0;
+}
+
+.items-count {
+  margin: 0 0 10px 0;
+  color: #757575;
+  font-size: 13px;
+}
+
+.item-summary {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #424242;
+  padding: 5px 0;
+}
+
+.view-btn {
+  width: 100%;
+  background-color: #1565C0;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.view-btn:hover {
+  background-color: #1E88E5;
+}
+
+.view-btn:active {
+  background-color: #0D47A1;
+}
