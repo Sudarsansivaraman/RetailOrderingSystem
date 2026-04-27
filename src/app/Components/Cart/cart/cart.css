@@ -1,0 +1,100 @@
+.cart-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  color: #212121;
+}
+
+h2 {
+  color: #1565C0;
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  background: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-info h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.item-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantity {
+  font-weight: bold;
+  min-width: 2rem;
+  text-align: center;
+}
+
+.btn-primary {
+  background: #1565C0;
+  color: #FFFFFF;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: #1E88E5;
+}
+
+.btn-secondary {
+  background: #E0E0E0;
+  color: #212121;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-secondary:hover {
+  background: #BDBDBD;
+}
+
+.btn-danger {
+  background: #D32F2F;
+  color: #FFFFFF;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background: #C62828;
+}
+
+.cart-summary {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.loading, .error, .empty-cart {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+.error {
+  color: #D32F2F;
+}
